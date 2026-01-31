@@ -1,218 +1,311 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام KR - الصفحة الرئيسية</title>
+    <title>هويتي الرقمية | منصة KR الحديثة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Cairo', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;700;900&display=swap');
+        
+        :root {
+            --primary-blue: #0A2240; /* أزرق غامق جداً */
+            --secondary-blue: #1C4D7B; /* أزرق متوسط */
+            --accent-green: #3DCC91; /* أخضر ساطع للعناصر النشطة */
+            --text-light: #F0F2F5; /* لون نص فاتح */
+            --text-dark: #A7B0C1; /* لون نص رمادي */
+            --card-bg: rgba(255, 255, 255, 0.08); /* خلفية البطاقات شفافة */
+            --border-light: rgba(255, 255, 255, 0.15); /* حدود شفافة فاتحة */
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.4); /* ظل عميق */
+            --font-main: 'Noto Kufi Arabic', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+            color: var(--text-light);
+        }
+
         body {
-            background: linear-gradient(135deg, #0d1117 0%, #1a237e 50%, #0d1117 100%);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
             min-height: 100vh;
-            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--primary-blue);
+            border-radius: 25px;
+            box-shadow: var(--shadow-dark);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+        }
+
+        .header {
+            background: var(--secondary-blue);
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .header .title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 0.5px;
+        }
+
+        .header .user-menu i {
+            font-size: 24px;
+            color: var(--accent-green);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .header .user-menu i:hover {
+            color: var(--text-light);
+        }
+
+        .main-content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        /* --- بطاقة الهوية الرقمية --- */
+        .identity-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
             display: flex;
             align-items: center;
+            gap: 25px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .identity-card::before { /* تأثير خلفية خفيف */
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top left, var(--secondary-blue) 0%, transparent 50%);
+            opacity: 0.3;
+            z-index: 0;
+        }
+        .identity-card > * { z-index: 1; position: relative; }
+
+        .user-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #fff; /* Placeholder */
+            border: 3px solid var(--accent-green);
+            display: flex;
             justify-content: center;
-            padding: 20px;
+            align-items: center;
+            overflow: hidden;
         }
-        .container {
-            max-width: 800px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            padding: 60px 40px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .user-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ff6f00, #ff9800);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .user-photo i {
+            font-size: 40px;
+            color: var(--secondary-blue);
         }
-        p {
-            font-size: 18px;
-            color: #c9d1d9;
-            margin-bottom: 50px;
+
+        .user-details h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--accent-green);
         }
-        .cards {
+        .user-details p {
+            font-size: 14px;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+        .user-details .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(61, 204, 145, 0.2);
+            color: var(--accent-green);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+        .user-details .status i {
+            font-size: 12px;
+            color: var(--accent-green);
+        }
+
+        /* --- بطاقات الخدمات والاشعارات --- */
+        .grid-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
+            gap: 20px;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s;
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: #ff6f00;
-            box-shadow: 0 20px 40px rgba(255, 111, 0, 0.3);
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
         }
-        .card i {
-            font-size: 60px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ff6f00, #ff9800);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .service-card .icon {
+            font-size: 30px;
+            color: var(--accent-green);
+            min-width: 40px; /* لضمان محاذاة الأيقونات */
         }
-        .card h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-        .card p {
-            font-size: 14px;
-            color: #8b949e;
-            margin-bottom: 0;
-        }
-        .test-section {
-            margin-top: 50px;
-            padding: 30px;
-            background: rgba(33, 150, 243, 0.1);
-            border-radius: 16px;
-            border: 1px solid rgba(33, 150, 243, 0.3);
-        }
-        .test-btn {
-            background: linear-gradient(135deg, #2196f3, #1976d2);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
+        .service-card .text h4 {
             font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin: 10px;
-            transition: all 0.3s;
+            margin-bottom: 5px;
+            color: var(--text-light);
         }
-        .test-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.4);
+        .service-card .text p {
+            font-size: 12px;
+            color: var(--text-dark);
         }
-        .status {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
+        
+        .notification-card {
+            grid-column: 1 / -1; /* لجعل بطاقة الإشعار تأخذ عرض كامل */
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--accent-green);
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            color: var(--text-light);
+        }
+        .notification-card .icon {
+            font-size: 24px;
+            color: var(--accent-green);
+        }
+        .notification-card .text h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--accent-green);
+        }
+        .notification-card .text p {
             font-size: 14px;
+            color: var(--text-dark);
         }
-        .success { color: #00c853; }
-        .error { color: #d50000; }
-        .info { color: #2196f3; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header .title {
+                font-size: 24px;
+            }
+            .main-content {
+                padding: 20px;
+            }
+            .identity-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .user-details .status {
+                margin: 10px auto 0;
+            }
+            .grid-cards {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1><i class="fas fa-crown"></i> نظام KR</h1>
-        <p>نظام تفعيل الهوية الرقمي المتكامل</p>
 
-```
-    <div class="cards">
-        <a href="apply.html" class="card">
-            <i class="fas fa-id-card"></i>
-            <h3>تقديم طلب</h3>
-            <p>قدّم طلب تفعيل هويتك الرقمية</p>
-        </a>
-        
-        <a href="admin/panel.html" class="card">
-            <i class="fas fa-shield-alt"></i>
-            <h3>لوحة الإدارة</h3>
-            <p>راجع واقبل الطلبات</p>
-        </a>
-        
-        <a href="kr-digital-platform.html" class="card" style="opacity: 0.5;">
-            <i class="fas fa-home"></i>
-            <h3>المنصة الرقمية</h3>
-            <p>للمستخدمين المفعلين فقط</p>
-        </a>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="title">منصة KR الرقمية</div>
+            <div class="user-menu">
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="identity-card">
+                <div class="user-photo">
+                    <i class="fas fa-user-circle"></i> 
+                    </div>
+                <div class="user-details">
+                    <h2>محمد بن فهد العتيبي</h2>
+                    <p>رقم الهوية: 1023456789</p>
+                    <p>تاريخ الميلاد: 15/05/1990</p>
+                    <div class="status">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>حالة الهوية: آمن</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-cards">
+                
+                <div class="service-card">
+                    <i class="fas fa-bell icon"></i>
+                    <div class="text">
+                        <h4>الإشعارات والتنبيهات</h4>
+                        <p>لا توجد إشعارات جديدة حالياً.</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <i class="fas fa-qrcode icon"></i>
+                    <div class="text">
+                        <h4>الباركود الرقمي</h4>
+                        <p>عرض الباركود الخاص بهويتك لدخول المنشآت.</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <i class="fas fa-file-alt icon"></i>
+                    <div class="text">
+                        <h4>خدمات الوثائق</h4>
+                        <p>استعراض وتجديد الوثائق الرقمية.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <i class="fas fa-cogs icon"></i>
+                    <div class="text">
+                        <h4>إعدادات الحساب</h4>
+                        <p>تعديل بياناتك وتفضيلات العرض.</p>
+                    </div>
+                </div>
+
+                <div class="notification-card">
+                    <i class="fas fa-exclamation-triangle icon"></i>
+                    <div class="text">
+                        <h4>تنبيه هام!</h4>
+                        <p>يرجى تحديث بيانات الاتصال الخاصة بك قبل نهاية الشهر الجاري لتجنب إيقاف بعض الخدمات.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="test-section">
-        <h3 style="margin-bottom: 20px;"><i class="fas fa-flask"></i> اختبار النظام</h3>
-        <p style="font-size: 14px; margin-bottom: 20px;">تأكد من أن النظام يعمل بشكل صحيح</p>
-        
-        <button class="test-btn" onclick="testStorage()">
-            <i class="fas fa-database"></i> اختبار التخزين
-        </button>
-        
-        <button class="test-btn" onclick="viewData()">
-            <i class="fas fa-eye"></i> عرض البيانات
-        </button>
-        
-        <button class="test-btn" onclick="clearData()">
-            <i class="fas fa-trash"></i> مسح البيانات
-        </button>
-        
-        <div class="status" id="statusDiv"></div>
-    </div>
-</div>
-
-<script>
-    function testStorage() {
-        const status = document.getElementById('statusDiv');
-        try {
-            // اختبار القراءة والكتابة
-            localStorage.setItem('test_kr', 'تجربة');
-            const test = localStorage.getItem('test_kr');
-            localStorage.removeItem('test_kr');
-            
-            if (test === 'تجربة') {
-                status.innerHTML = '<span class="success">✅ النظام يعمل بشكل ممتاز! LocalStorage جاهز.</span>';
-            } else {
-                status.innerHTML = '<span class="error">❌ خطأ في LocalStorage</span>';
-            }
-        } catch (e) {
-            status.innerHTML = '<span class="error">❌ خطأ: ' + e.message + '</span>';
-        }
-    }
-
-    function viewData() {
-        const status = document.getElementById('statusDiv');
-        const requests = JSON.parse(localStorage.getItem('admin_pending_requests') || '[]');
-        const activated = JSON.parse(localStorage.getItem('activated_users') || '[]');
-        
-        let html = '<div style="text-align: right; font-size: 13px;">';
-        html += `<p class="info">📥 <strong>الطلبات المعلقة:</strong> ${requests.length}</p>`;
-        html += `<p class="success">✅ <strong>المستخدمون المفعلون:</strong> ${activated.length}</p>`;
-        
-        if (requests.length > 0) {
-            html += '<hr style="margin: 15px 0; border-color: rgba(255,255,255,0.1);">';
-            html += '<p style="color: #ff9800; margin-bottom: 10px;"><strong>آخر الطلبات:</strong></p>';
-            requests.slice(0, 3).forEach(req => {
-                html += `<p style="margin: 5px 0; color: #c9d1d9;">• ${req.fullName} - ${req.status}</p>`;
-            });
-        }
-        
-        html += '</div>';
-        status.innerHTML = html;
-    }
-
-    function clearData() {
-        if (confirm('⚠️ هل أنت متأكد من حذف جميع البيانات؟')) {
-            localStorage.removeItem('admin_pending_requests');
-            localStorage.removeItem('activated_users');
-            localStorage.removeItem('device_id');
-            
-            const status = document.getElementById('statusDiv');
-            status.innerHTML = '<span class="success">✅ تم مسح جميع البيانات بنجاح!</span>';
-        }
-    }
-
-    // عرض الإحصائيات عند التحميل
-    window.addEventListener('load', function() {
-        setTimeout(viewData, 500);
-    });
-</script>
-```
 
 </body>
 </html>
