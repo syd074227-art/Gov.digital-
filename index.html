@@ -11,15 +11,28 @@
         :root {
             --bg-dark: #0a0a0f;
             --card-dark: #131320;
-            --accent: #00f7ff; /* سماوي رقمي */
+            --accent: #00f7ff;
             --accent-gradient: linear-gradient(135deg, #00f7ff, #0080ff, #9d4edd);
-            --cyber-gradient: linear-gradient(45deg, #00f7ff, #9d4edd, #ff0080);
             --text-main: #ffffff;
             --text-dim: #b0b0d0;
             --glass: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
             --glow: 0 0 20px rgba(0, 247, 255, 0.7);
             --dark-purple: #1a1a2e;
+        }
+
+        /* مظهر فاتح */
+        :root[data-theme="light"] {
+            --bg-dark: #f5f7ff;
+            --card-dark: #ffffff;
+            --accent: #0066ff;
+            --accent-gradient: linear-gradient(135deg, #0066ff, #00aaff, #7a5fff);
+            --text-main: #1a1a2e;
+            --text-dim: #4a4a6e;
+            --glass: rgba(26, 26, 46, 0.05);
+            --glass-border: rgba(26, 26, 46, 0.1);
+            --glow: 0 0 15px rgba(0, 102, 255, 0.3);
+            --dark-purple: #e6e9ff;
         }
 
         * { 
@@ -37,9 +50,39 @@
                 radial-gradient(circle at 10% 20%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(157, 78, 221, 0.05) 0%, transparent 20%);
             min-height: 100vh;
+            transition: all 0.5s ease;
         }
 
-        /* Header متطور مع تأثيرات */
+        /* إعدادات اللغة الإنجليزية */
+        body[dir="ltr"] {
+            font-family: 'Segoe UI', 'Noto Kufi Arabic', sans-serif;
+        }
+
+        body[dir="ltr"] .top-nav,
+        body[dir="ltr"] .sec-header,
+        body[dir="ltr"] .search-bar,
+        body[dir="ltr"] .quick-access,
+        body[dir="ltr"] .featured-cards,
+        body[dir="ltr"] .digital-platforms,
+        body[dir="ltr"] .categories-grid {
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        body[dir="ltr"] .sec-header h3::before {
+            right: auto;
+            left: 0;
+        }
+
+        body[dir="ltr"] .profile-area {
+            flex-direction: row-reverse;
+        }
+
+        body[dir="ltr"] .id-top {
+            flex-direction: row-reverse;
+        }
+
+        /* Header */
         .top-nav { 
             padding: 25px 20px; 
             display: flex; 
@@ -88,20 +131,6 @@
             border: 2px solid var(--bg-dark);
         }
         
-        .profile-pic::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            background: var(--accent-gradient);
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(10px);
-            opacity: 0.5;
-        }
-        
         .welcome-text h4 { 
             font-size: 14px; 
             color: var(--text-dim); 
@@ -137,7 +166,7 @@
             transform: translateY(-3px);
         }
         
-        /* شريط بحث متطور */
+        /* شريط البحث */
         .search-container { 
             padding: 0 20px; 
             margin-bottom: 30px; 
@@ -161,6 +190,13 @@
             overflow: hidden;
         }
         
+        [data-theme="light"] .search-bar {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.1),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+        
         .search-bar::before {
             content: '';
             position: absolute;
@@ -182,7 +218,7 @@
         .search-bar input { 
             background: none; 
             border: none; 
-            color: white; 
+            color: var(--text-main); 
             width: 100%; 
             outline: none; 
             font-size: 15px; 
@@ -242,7 +278,7 @@
             transform: translateX(-5px);
         }
         
-        /* الوصول السريع مع تأثيرات جديدة */
+        /* الوصول السريع */
         .quick-access { 
             display: flex; 
             gap: 15px; 
@@ -266,6 +302,7 @@
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .q-item::before {
@@ -309,7 +346,7 @@
             font-weight: 500;
         }
         
-        /* بطاقات مميزة فخمة */
+        /* بطاقات مميزة */
         .featured-cards { 
             padding: 0 20px 25px; 
             display: flex;
@@ -323,10 +360,10 @@
         }
         
         .digital-id { 
-            background: linear-gradient(145deg, #131320 0%, #0f0f1a 100%); 
+            background: linear-gradient(145deg, var(--card-dark) 0%, var(--dark-purple) 100%); 
             border-radius: 28px; 
             padding: 25px; 
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
             position: relative;
             overflow: hidden;
             height: 200px;
@@ -334,6 +371,12 @@
             box-shadow: 
                 0 20px 40px rgba(0, 0, 0, 0.5),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        [data-theme="light"] .digital-id {
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
         
         .digital-id::before {
@@ -399,7 +442,7 @@
             margin-bottom: 8px; 
             font-weight: 700;
             font-family: 'Courier New', monospace;
-            background: linear-gradient(to right, #fff, var(--accent));
+            background: linear-gradient(to right, var(--text-main), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -426,7 +469,7 @@
             animation: pulse 2s infinite;
         }
         
-        /* قسم المنصات الرقمية الجديدة */
+        /* قسم المنصات الرقمية */
         .digital-platforms {
             padding: 0 20px 25px;
             display: grid;
@@ -446,6 +489,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .platform-card::before {
@@ -485,6 +529,11 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
+        }
+        
+        [data-theme="light"] .platform-icon {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         .platform-icon::after {
@@ -528,6 +577,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .cat-item:hover {
@@ -568,7 +618,7 @@
             height: 30px; 
         }
         
-        /* الشريط السفلي المتطور */
+        /* الشريط السفلي */
         .bottom-nav { 
             position: fixed; 
             bottom: 25px; 
@@ -585,6 +635,13 @@
                 0 20px 40px rgba(0,0,0,0.6),
                 0 0 20px rgba(0, 247, 255, 0.1);
             z-index: 1000;
+        }
+        
+        [data-theme="light"] .bottom-nav {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.1),
+                0 0 20px rgba(0, 102, 255, 0.1);
         }
         
         .nav-item { 
@@ -633,8 +690,171 @@
         }
         
         .nav-item:hover:not(.active) {
-            color: white;
+            color: var(--text-main);
             background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* صفحة الإعدادات */
+        .settings-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+            transition: all 0.4s ease;
+        }
+        
+        .settings-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .settings-header i {
+            font-size: 24px;
+            color: var(--accent);
+            cursor: pointer;
+        }
+        
+        .settings-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .settings-section {
+            margin-bottom: 30px;
+        }
+        
+        .settings-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        
+        .settings-option {
+            background: var(--card-dark);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 15px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .settings-option:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .option-info i {
+            font-size: 20px;
+            color: var(--accent);
+        }
+        
+        .option-text h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .option-text p {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+        
+        /* ترويسة تبديل */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: var(--accent-gradient);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+        
+        /* لغة التبديل */
+        .language-switch {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 5px;
+            width: 120px;
+        }
+        
+        .lang-option {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .lang-option.active {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 247, 255, 0.3);
         }
         
         /* أنيميشن */
@@ -655,7 +875,7 @@
             100% { transform: translateY(0px); }
         }
         
-        /* التمرير الشخصي */
+        /* تلميحات التمرير */
         .scroll-hint {
             position: absolute;
             bottom: 90px;
@@ -676,236 +896,671 @@
         }
     </style>
 </head>
-<body>
+<body dir="rtl">
 
-    <div class="top-nav">
-        <div class="profile-area">
-            <div class="profile-pic">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User">
+    <!-- الصفحة الرئيسية -->
+    <div class="main-page">
+        <div class="top-nav">
+            <div class="profile-area">
+                <div class="profile-pic">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User">
+                </div>
+                <div class="welcome-text">
+                    <h4>مرحباً بك في</h4>
+                    <p>بوابة KR الذكية</p>
+                </div>
             </div>
-            <div class="welcome-text">
-                <h4>مرحباً بك في</h4>
-                <p>بوابة KR الذكية</p>
+            <div class="top-icons">
+                <i class="far fa-bell"></i>
+                <i class="far fa-clock"></i>
+                <i class="fas fa-cog" id="settingsBtn"></i>
             </div>
         </div>
-        <div class="top-icons">
-            <i class="far fa-bell"></i>
-            <i class="far fa-clock"></i>
-            <i class="fas fa-cog"></i>
-        </div>
-    </div>
 
-    <div class="search-container">
-        <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="ابحث في الخدمات، المنصات، أو المستندات الرقمية...">
-            <i class="fas fa-microphone"></i>
-            <i class="fas fa-sliders-h"></i>
-        </div>
-    </div>
-
-    <div class="sec-header">
-        <h3>الوصول السريع</h3>
-        <span>تخصيص</span>
-    </div>
-    <div class="quick-access">
-        <div class="q-item"><i class="fas fa-calendar-alt"></i><span>التقويم الذكي</span></div>
-        <div class="q-item"><i class="fas fa-university"></i><span>الجهات الحكومية</span></div>
-        <div class="q-item"><i class="fas fa-qrcode"></i><span>التصاريح الرقمية</span></div>
-        <div class="q-item"><i class="fas fa-wallet"></i><span>المحفظة الإلكترونية</span></div>
-        <div class="q-item"><i class="fas fa-file-contract"></i><span>المستندات</span></div>
-        <div class="q-item"><i class="fas fa-chart-line"></i><span>الإحصائيات</span></div>
-    </div>
-
-    <div class="sec-header">
-        <h3>البطاقات الرقمية</h3>
-        <span>إدارة البطاقات</span>
-    </div>
-    <div class="featured-cards">
-        <div class="digital-id">
-            <div class="id-top">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Coat_of_arms_of_Saudi_Arabia.svg" alt="Logo">
-                <i class="fas fa-ellipsis-h"></i>
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="ابحث في الخدمات، المنصات، أو المستندات الرقمية...">
+                <i class="fas fa-microphone"></i>
+                <i class="fas fa-sliders-h"></i>
             </div>
-            <div class="id-info">
-                <p>بطاقة الهوية الوطنية الذكية</p>
-                <h2>١٠٩٢٨٣٧٤٦٥</h2>
-                <div class="id-status">
-                    <div class="status-dot"></div>
-                    <p style="margin-top: 0; font-size: 12px; color: #00ff88;">نشط • تم التحقق الرقمي</p>
+        </div>
+
+        <div class="sec-header">
+            <h3>الوصول السريع</h3>
+            <span>تخصيص</span>
+        </div>
+        <div class="quick-access">
+            <div class="q-item"><i class="fas fa-calendar-alt"></i><span>التقويم الذكي</span></div>
+            <div class="q-item"><i class="fas fa-university"></i><span>الجهات الحكومية</span></div>
+            <div class="q-item"><i class="fas fa-qrcode"></i><span>التصاريح الرقمية</span></div>
+            <div class="q-item"><i class="fas fa-wallet"></i><span>المحفظة الإلكترونية</span></div>
+            <div class="q-item"><i class="fas fa-file-contract"></i><span>المستندات</span></div>
+            <div class="q-item"><i class="fas fa-chart-line"></i><span>الإحصائيات</span></div>
+        </div>
+
+        <div class="sec-header">
+            <h3>البطاقات الرقمية</h3>
+            <span>إدارة البطاقات</span>
+        </div>
+        <div class="featured-cards">
+            <div class="digital-id">
+                <div class="id-top">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Coat_of_arms_of_Saudi_Arabia.svg" alt="Logo">
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="id-info">
+                    <p>بطاقة الهوية الوطنية الذكية</p>
+                    <h2>١٠٩٢٨٣٧٤٦٥</h2>
+                    <div class="id-status">
+                        <div class="status-dot"></div>
+                        <p style="margin-top: 0; font-size: 12px; color: #00ff88;">نشط • تم التحقق الرقمي</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="digital-id" style="background: linear-gradient(145deg, var(--card-dark) 0%, var(--dark-purple) 100%);">
+                <div class="id-top">
+                    <i class="fas fa-car" style="color: var(--accent); font-size: 30px;"></i>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="id-info">
+                    <p>رخصة القيادة الرقمية</p>
+                    <h2>٧٤٦٣٨٢٠١</h2>
+                    <div class="id-status">
+                        <div class="status-dot"></div>
+                        <p style="margin-top: 0; font-size: 12px; color: #00ff88;">سارية حتى ١٤٤٦/٠٨/١٠</p>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="digital-id" style="background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);">
-            <div class="id-top">
-                <i class="fas fa-car" style="color: #00f7ff; font-size: 30px;"></i>
-                <i class="fas fa-ellipsis-h"></i>
+
+        <div class="sec-header">
+            <h3>المنصات الرقمية</h3>
+            <span>اكتشاف المزيد</span>
+        </div>
+        <div class="digital-platforms">
+            <div class="platform-card">
+                <div class="platform-icon" style="color: var(--accent);">
+                    <i class="fas fa-passport"></i>
+                </div>
+                <h4>منصة أبشر</h4>
+                <p>الخدمات الحكومية الموحدة</p>
             </div>
-            <div class="id-info">
-                <p>رخصة القيادة الرقمية</p>
-                <h2>٧٤٦٣٨٢٠١</h2>
-                <div class="id-status">
-                    <div class="status-dot"></div>
-                    <p style="margin-top: 0; font-size: 12px; color: #00ff88;">سارية حتى ١٤٤٦/٠٨/١٠</p>
+            
+            <div class="platform-card">
+                <div class="platform-icon" style="color: #9d4edd;">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h4>منصة ناجز</h4>
+                <p>الخدمات القضائية الإلكترونية</p>
+            </div>
+            
+            <div class="platform-card">
+                <div class="platform-icon" style="color: #ff0080;">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h4>منصة صحتي</h4>
+                <p>الخدمات الصحية الذكية</p>
+            </div>
+            
+            <div class="platform-card">
+                <div class="platform-icon" style="color: #00ff88;">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h4>منصة مدرستي</h4>
+                <p>التعليم الإلكتروني التفاعلي</p>
+            </div>
+        </div>
+
+        <div class="sec-header">
+            <h3>التصنيفات الرئيسية</h3>
+            <span>جميع التصنيفات</span>
+        </div>
+        <div class="categories-grid">
+            <div class="cat-item">
+                <div class="cat-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">
+                    <i class="fas fa-users"></i>
+                </div>
+                <span>الشخصية والأسرة</span>
+            </div>
+            
+            <div class="cat-item" style="animation-delay: 0.1s;">
+                <div class="cat-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <span>الصحة والطب</span>
+            </div>
+            
+            <div class="cat-item" style="animation-delay: 0.2s;">
+                <div class="cat-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
+                    <i class="fas fa-mosque"></i>
+                </div>
+                <span>الشؤون الدينية</span>
+            </div>
+            
+            <div class="cat-item" style="animation-delay: 0.3s;">
+                <div class="cat-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <span>التعليم والتدريب</span>
+            </div>
+            
+            <div class="cat-item" style="animation-delay: 0.4s;">
+                <div class="cat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <span>التجارة والمالية</span>
+            </div>
+            
+            <div class="cat-item" style="animation-delay: 0.5s;">
+                <div class="cat-icon" style="background: rgba(34, 197, 94, 0.15); color: #22c55e;">
+                    <i class="fas fa-car"></i>
+                </div>
+                <span>المركبات والمواصلات</span>
+            </div>
+        </div>
+
+        <div class="scroll-hint">
+            <span>اسحب لأعلى للمزيد</span>
+            <i class="fas fa-chevron-up"></i>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-th-large"></i>
+                <span>الخدمات</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-compass"></i>
+                <span>المنصات</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-comment-dots"></i>
+                <span>المحادثات</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user-circle"></i>
+                <span>الملف الشخصي</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة الإعدادات -->
+    <div class="settings-page" id="settingsPage">
+        <div class="settings-header">
+            <i class="fas fa-arrow-right" id="closeSettings"></i>
+            <h2>الإعدادات</h2>
+        </div>
+
+        <div class="settings-section">
+            <h3>المظهر</h3>
+            <div class="settings-option" id="themeOption">
+                <div class="option-info">
+                    <i class="fas fa-palette"></i>
+                    <div class="option-text">
+                        <h4>المظهر الداكن</h4>
+                        <p>تبديل بين المظهر الداكن والفاتح</p>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>اللغة</h3>
+            <div class="settings-option">
+                <div class="option-info">
+                    <i class="fas fa-language"></i>
+                    <div class="option-text">
+                        <h4>لغة التطبيق</h4>
+                        <p>اختر اللغة التي تفضلها للواجهة</p>
+                    </div>
+                </div>
+                <div class="language-switch" id="languageSwitch">
+                    <div class="lang-option active" data-lang="ar">العربية</div>
+                    <div class="lang-option" data-lang="en">English</div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="sec-header">
-        <h3>المنصات الرقمية</h3>
-        <span>اكتشاف المزيد</span>
-    </div>
-    <div class="digital-platforms">
-        <div class="platform-card">
-            <div class="platform-icon" style="color: #00f7ff;">
-                <i class="fas fa-passport"></i>
+        <div class="settings-section">
+            <h3>الإشعارات</h3>
+            <div class="settings-option">
+                <div class="option-info">
+                    <i class="fas fa-bell"></i>
+                    <div class="option-text">
+                        <h4>الإشعارات الفورية</h4>
+                        <p>تلقي تنبيهات حول المستجدات المهمة</p>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="notificationsToggle" checked>
+                    <span class="slider"></span>
+                </label>
             </div>
-            <h4>منصة أبشر</h4>
-            <p>الخدمات الحكومية الموحدة</p>
         </div>
-        
-        <div class="platform-card">
-            <div class="platform-icon" style="color: #9d4edd;">
-                <i class="fas fa-balance-scale"></i>
-            </div>
-            <h4>منصة ناجز</h4>
-            <p>الخدمات القضائية الإلكترونية</p>
-        </div>
-        
-        <div class="platform-card">
-            <div class="platform-icon" style="color: #ff0080;">
-                <i class="fas fa-heartbeat"></i>
-            </div>
-            <h4>منصة صحتي</h4>
-            <p>الخدمات الصحية الذكية</p>
-        </div>
-        
-        <div class="platform-card">
-            <div class="platform-icon" style="color: #00ff88;">
-                <i class="fas fa-graduation-cap"></i>
-            </div>
-            <h4>منصة مدرستي</h4>
-            <p>التعليم الإلكتروني التفاعلي</p>
-        </div>
-    </div>
 
-    <div class="sec-header">
-        <h3>التصنيفات الرئيسية</h3>
-        <span>جميع التصنيفات</span>
-    </div>
-    <div class="categories-grid">
-        <div class="cat-item">
-            <div class="cat-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">
-                <i class="fas fa-users"></i>
+        <div class="settings-section">
+            <h3>خصوصية البيانات</h3>
+            <div class="settings-option">
+                <div class="option-info">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="option-text">
+                        <h4>التشفير المتقدم</h4>
+                        <p>حماية بياناتك بتقنيات التشفير الحديثة</p>
+                    </div>
+                </div>
+                <i class="fas fa-check-circle" style="color: #00ff88; font-size: 20px;"></i>
             </div>
-            <span>الشخصية والأسرة</span>
         </div>
-        
-        <div class="cat-item" style="animation-delay: 0.1s;">
-            <div class="cat-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;">
-                <i class="fas fa-heartbeat"></i>
-            </div>
-            <span>الصحة والطب</span>
-        </div>
-        
-        <div class="cat-item" style="animation-delay: 0.2s;">
-            <div class="cat-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
-                <i class="fas fa-mosque"></i>
-            </div>
-            <span>الشؤون الدينية</span>
-        </div>
-        
-        <div class="cat-item" style="animation-delay: 0.3s;">
-            <div class="cat-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
-                <i class="fas fa-graduation-cap"></i>
-            </div>
-            <span>التعليم والتدريب</span>
-        </div>
-        
-        <div class="cat-item" style="animation-delay: 0.4s;">
-            <div class="cat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
-                <i class="fas fa-hand-holding-usd"></i>
-            </div>
-            <span>التجارة والمالية</span>
-        </div>
-        
-        <div class="cat-item" style="animation-delay: 0.5s;">
-            <div class="cat-icon" style="background: rgba(34, 197, 94, 0.15); color: #22c55e;">
-                <i class="fas fa-car"></i>
-            </div>
-            <span>المركبات والمواصلات</span>
-        </div>
-    </div>
 
-    <div class="scroll-hint">
-        <span>اسحب لأعلى للمزيد</span>
-        <i class="fas fa-chevron-up"></i>
-    </div>
-
-    <div class="bottom-nav">
-        <div class="nav-item active">
-            <i class="fas fa-home"></i>
-            <span>الرئيسية</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-th-large"></i>
-            <span>الخدمات</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-compass"></i>
-            <span>المنصات</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-comment-dots"></i>
-            <span>المحادثات</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-user-circle"></i>
-            <span>الملف الشخصي</span>
+        <div class="settings-section">
+            <h3>حول التطبيق</h3>
+            <div class="settings-option">
+                <div class="option-info">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="option-text">
+                        <h4>إصدار التطبيق</h4>
+                        <p>KR Digital Portal v2.5.1</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // تفاعل الشريط السفلي
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelector('.nav-item.active').classList.remove('active');
-                this.classList.add('active');
+        // بيانات الترجمة
+        const translations = {
+            ar: {
+                // عناوين الصفحة الرئيسية
+                welcome: "مرحباً بك في",
+                appName: "بوابة KR الذكية",
+                searchPlaceholder: "ابحث في الخدمات، المنصات، أو المستندات الرقمية...",
+                quickAccess: "الوصول السريع",
+                customize: "تخصيص",
+                digitalCards: "البطاقات الرقمية",
+                manageCards: "إدارة البطاقات",
+                digitalPlatforms: "المنصات الرقمية",
+                exploreMore: "اكتشاف المزيد",
+                mainCategories: "التصنيفات الرئيسية",
+                allCategories: "جميع التصنيفات",
                 
-                // محاكاة اهتزاز (Haptic feedback)
-                if (window.navigator.vibrate) window.navigator.vibrate(20);
+                // عناصر الوصول السريع
+                smartCalendar: "التقويم الذكي",
+                governmentEntities: "الجهات الحكومية",
+                digitalPermits: "التصاريح الرقمية",
+                eWallet: "المحفظة الإلكترونية",
+                documents: "المستندات",
+                statistics: "الإحصائيات",
                 
-                // تأثير النقر
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    if(this.classList.contains('active')) {
-                        this.style.transform = 'translateY(-8px)';
-                    } else {
-                        this.style.transform = 'scale(1)';
-                    }
-                }, 150);
+                // بطاقات الهوية
+                smartNationalId: "بطاقة الهوية الوطنية الذكية",
+                digitalDrivingLicense: "رخصة القيادة الرقمية",
+                activeVerified: "نشط • تم التحقق الرقمي",
+                validUntil: "سارية حتى",
+                
+                // المنصات الرقمية
+                absherPlatform: "منصة أبشر",
+                unifiedGovServices: "الخدمات الحكومية الموحدة",
+                najizPlatform: "منصة ناجز",
+                judicialEServices: "الخدمات القضائية الإلكترونية",
+                sehatyPlatform: "منصة صحتي",
+                smartHealthServices: "الخدمات الصحية الذكية",
+                mySchoolPlatform: "منصة مدرستي",
+                interactiveElearning: "التعليم الإلكتروني التفاعلي",
+                
+                // التصنيفات
+                personalFamily: "الشخصية والأسرة",
+                healthMedical: "الصحة والطب",
+                religiousAffairs: "الشؤون الدينية",
+                educationTraining: "التعليم والتدريب",
+                commerceFinance: "التجارة والمالية",
+                vehiclesTransport: "المركبات والمواصلات",
+                
+                // شريط التنقل
+                home: "الرئيسية",
+                services: "الخدمات",
+                platforms: "المنصات",
+                conversations: "المحادثات",
+                profile: "الملف الشخصي",
+                
+                // تلميحات
+                scrollHint: "اسحب لأعلى للمزيد",
+                
+                // إعدادات
+                settings: "الإعدادات",
+                appearance: "المظهر",
+                darkMode: "المظهر الداكن",
+                toggleDarkLight: "تبديل بين المظهر الداكن والفاتح",
+                language: "اللغة",
+                appLanguage: "لغة التطبيق",
+                chooseLanguage: "اختر اللغة التي تفضلها للواجهة",
+                notifications: "الإشعارات",
+                instantNotifications: "الإشعارات الفورية",
+                receiveAlerts: "تلقي تنبيهات حول المستجدات المهمة",
+                dataPrivacy: "خصوصية البيانات",
+                advancedEncryption: "التشفير المتقدم",
+                dataProtection: "حماية بياناتك بتقنيات التشفير الحديثة",
+                aboutApp: "حول التطبيق",
+                appVersion: "إصدار التطبيق",
+                versionInfo: "KR Digital Portal v2.5.1"
+            },
+            en: {
+                // عناوين الصفحة الرئيسية
+                welcome: "Welcome to",
+                appName: "KR Smart Portal",
+                searchPlaceholder: "Search services, platforms, or digital documents...",
+                quickAccess: "Quick Access",
+                customize: "Customize",
+                digitalCards: "Digital Cards",
+                manageCards: "Manage Cards",
+                digitalPlatforms: "Digital Platforms",
+                exploreMore: "Explore More",
+                mainCategories: "Main Categories",
+                allCategories: "All Categories",
+                
+                // عناصر الوصول السريع
+                smartCalendar: "Smart Calendar",
+                governmentEntities: "Government Entities",
+                digitalPermits: "Digital Permits",
+                eWallet: "E-Wallet",
+                documents: "Documents",
+                statistics: "Statistics",
+                
+                // بطاقات الهوية
+                smartNationalId: "Smart National ID",
+                digitalDrivingLicense: "Digital Driving License",
+                activeVerified: "Active • Digitally Verified",
+                validUntil: "Valid until",
+                
+                // المنصات الرقمية
+                absherPlatform: "Absher Platform",
+                unifiedGovServices: "Unified Government Services",
+                najizPlatform: "Najiz Platform",
+                judicialEServices: "Judicial E-Services",
+                sehatyPlatform: "Sehaty Platform",
+                smartHealthServices: "Smart Health Services",
+                mySchoolPlatform: "My School Platform",
+                interactiveElearning: "Interactive E-Learning",
+                
+                // التصنيفات
+                personalFamily: "Personal & Family",
+                healthMedical: "Health & Medical",
+                religiousAffairs: "Religious Affairs",
+                educationTraining: "Education & Training",
+                commerceFinance: "Commerce & Finance",
+                vehiclesTransport: "Vehicles & Transport",
+                
+                // شريط التنقل
+                home: "Home",
+                services: "Services",
+                platforms: "Platforms",
+                conversations: "Conversations",
+                profile: "Profile",
+                
+                // تلميحات
+                scrollHint: "Scroll up for more",
+                
+                // إعدادات
+                settings: "Settings",
+                appearance: "Appearance",
+                darkMode: "Dark Mode",
+                toggleDarkLight: "Switch between dark and light mode",
+                language: "Language",
+                appLanguage: "App Language",
+                chooseLanguage: "Choose your preferred interface language",
+                notifications: "Notifications",
+                instantNotifications: "Instant Notifications",
+                receiveAlerts: "Receive alerts about important updates",
+                dataPrivacy: "Data Privacy",
+                advancedEncryption: "Advanced Encryption",
+                dataProtection: "Protect your data with modern encryption",
+                aboutApp: "About App",
+                appVersion: "App Version",
+                versionInfo: "KR Digital Portal v2.5.1"
+            }
+        };
+
+        // حالة التطبيق
+        let currentLang = 'ar';
+        let currentTheme = 'dark';
+
+        // تهيئة التطبيق عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحميل التفضيلات المحفوظة
+            const savedLang = localStorage.getItem('kr_lang') || 'ar';
+            const savedTheme = localStorage.getItem('kr_theme') || 'dark';
+            
+            // تطبيق التفضيلات
+            changeLanguage(savedLang);
+            changeTheme(savedTheme);
+            
+            // إعداد حدث زر الإعدادات
+            document.getElementById('settingsBtn').addEventListener('click', openSettings);
+            document.getElementById('closeSettings').addEventListener('click', closeSettings);
+            
+            // إعداد أحداث التبديل
+            document.getElementById('themeToggle').addEventListener('change', toggleTheme);
+            document.getElementById('languageSwitch').addEventListener('click', function(e) {
+                if (e.target.classList.contains('lang-option')) {
+                    const lang = e.target.dataset.lang;
+                    changeLanguage(lang);
+                }
             });
+            
+            // إعداد أحداث التنقل
+            setupNavigation();
+            
+            // إعداد أحداث البحث
+            setupSearch();
+            
+            // تهيئة العرض
+            updateUI();
         });
 
-        // تفاعل شريط البحث
-        const searchInput = document.querySelector('.search-bar input');
-        const searchBar = document.querySelector('.search-bar');
-        
-        searchInput.addEventListener('focus', () => {
-            searchBar.style.transform = 'translateY(-3px)';
-            searchBar.style.boxShadow = 
-                '0 15px 35px rgba(0,0,0,0.5), 0 0 30px rgba(0, 247, 255, 0.3), inset 0 1px 0 rgba(255,255,255,0.1)';
-        });
-        
-        searchInput.addEventListener('blur', () => {
-            searchBar.style.transform = 'translateY(0)';
-            searchBar.style.boxShadow = 
-                '0 10px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)';
-        });
+        // فتح صفحة الإعدادات
+        function openSettings() {
+            document.getElementById('settingsPage').style.display = 'block';
+            document.querySelector('.main-page').style.display = 'none';
+            
+            // تحديث حالة التبديلات في الإعدادات
+            document.getElementById('themeToggle').checked = currentTheme === 'light';
+            
+            // تحديث واجهة الإعدادات بناءً على اللغة
+            updateSettingsUI();
+        }
 
-        // تفاعل البطاقات السريعة
+        // إغلاق صفحة الإعدادات
+        function closeSettings() {
+            document.getElementById('settingsPage').style.display = 'none';
+            document.querySelector('.main-page').style.display = 'block';
+        }
+
+        // تبديل المظهر
+        function toggleTheme() {
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            changeTheme(newTheme);
+        }
+
+        // تغيير المظهر
+        function changeTheme(theme) {
+            currentTheme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('kr_theme', theme);
+            
+            // تحديث نص المظهر في الإعدادات
+            updateSettingsUI();
+        }
+
+        // تغيير اللغة
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            localStorage.setItem('kr_lang', lang);
+            
+            // تحديث واجهة اللغة
+            updateLanguageSwitch(lang);
+            updateUI();
+            
+            // تحديث واجهة الإعدادات إذا كانت مفتوحة
+            if (document.getElementById('settingsPage').style.display === 'block') {
+                updateSettingsUI();
+            }
+        }
+
+        // تحديث واجهة اللغة
+        function updateLanguageSwitch(lang) {
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.dataset.lang === lang) {
+                    option.classList.add('active');
+                }
+            });
+        }
+
+        // تحديث واجهة الإعدادات
+        function updateSettingsUI() {
+            const t = translations[currentLang];
+            
+            // تحديث عناوين الإعدادات
+            document.querySelector('.settings-header h2').textContent = t.settings;
+            document.querySelectorAll('.settings-section h3')[0].textContent = t.appearance;
+            document.querySelectorAll('.settings-section h3')[1].textContent = t.language;
+            document.querySelectorAll('.settings-section h3')[2].textContent = t.notifications;
+            document.querySelectorAll('.settings-section h3')[3].textContent = t.dataPrivacy;
+            document.querySelectorAll('.settings-section h3')[4].textContent = t.aboutApp;
+            
+            // تحديث خيارات الإعدادات
+            document.querySelector('#themeOption .option-text h4').textContent = currentTheme === 'dark' ? t.darkMode : "Light Mode";
+            document.querySelector('#themeOption .option-text p').textContent = t.toggleDarkLight;
+            
+            document.querySelectorAll('.settings-option .option-text h4')[1].textContent = t.appLanguage;
+            document.querySelectorAll('.settings-option .option-text p')[1].textContent = t.chooseLanguage;
+            
+            document.querySelectorAll('.settings-option .option-text h4')[2].textContent = t.instantNotifications;
+            document.querySelectorAll('.settings-option .option-text p')[2].textContent = t.receiveAlerts;
+            
+            document.querySelectorAll('.settings-option .option-text h4')[3].textContent = t.advancedEncryption;
+            document.querySelectorAll('.settings-option .option-text p')[3].textContent = t.dataProtection;
+            
+            document.querySelectorAll('.settings-option .option-text h4')[4].textContent = t.appVersion;
+            document.querySelectorAll('.settings-option .option-text p')[4].textContent = t.versionInfo;
+        }
+
+        // تحديث الواجهة الرئيسية
+        function updateUI() {
+            const t = translations[currentLang];
+            
+            // تحديث رأس الصفحة
+            document.querySelector('.welcome-text h4').textContent = t.welcome;
+            document.querySelector('.welcome-text p').textContent = t.appName;
+            
+            // تحديث شريط البحث
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            
+            // تحديث العناوين
+            document.querySelectorAll('.sec-header h3')[0].textContent = t.quickAccess;
+            document.querySelectorAll('.sec-header span')[0].textContent = t.customize;
+            document.querySelectorAll('.sec-header h3')[1].textContent = t.digitalCards;
+            document.querySelectorAll('.sec-header span')[1].textContent = t.manageCards;
+            document.querySelectorAll('.sec-header h3')[2].textContent = t.digitalPlatforms;
+            document.querySelectorAll('.sec-header span')[2].textContent = t.exploreMore;
+            document.querySelectorAll('.sec-header h3')[3].textContent = t.mainCategories;
+            document.querySelectorAll('.sec-header span')[3].textContent = t.allCategories;
+            
+            // تحديث الوصول السريع
+            document.querySelectorAll('.q-item span')[0].textContent = t.smartCalendar;
+            document.querySelectorAll('.q-item span')[1].textContent = t.governmentEntities;
+            document.querySelectorAll('.q-item span')[2].textContent = t.digitalPermits;
+            document.querySelectorAll('.q-item span')[3].textContent = t.eWallet;
+            document.querySelectorAll('.q-item span')[4].textContent = t.documents;
+            document.querySelectorAll('.q-item span')[5].textContent = t.statistics;
+            
+            // تحديث بطاقات الهوية
+            document.querySelectorAll('.digital-id .id-info p')[0].textContent = t.smartNationalId;
+            document.querySelectorAll('.digital-id .id-info p')[1].textContent = t.digitalDrivingLicense;
+            document.querySelectorAll('.id-status p')[0].textContent = t.activeVerified;
+            document.querySelectorAll('.id-status p')[1].textContent = t.validUntil + " ١٤٤٦/٠٨/١٠";
+            
+            // تحديث المنصات الرقمية
+            document.querySelectorAll('.platform-card h4')[0].textContent = t.absherPlatform;
+            document.querySelectorAll('.platform-card p')[0].textContent = t.unifiedGovServices;
+            document.querySelectorAll('.platform-card h4')[1].textContent = t.najizPlatform;
+            document.querySelectorAll('.platform-card p')[1].textContent = t.judicialEServices;
+            document.querySelectorAll('.platform-card h4')[2].textContent = t.sehatyPlatform;
+            document.querySelectorAll('.platform-card p')[2].textContent = t.smartHealthServices;
+            document.querySelectorAll('.platform-card h4')[3].textContent = t.mySchoolPlatform;
+            document.querySelectorAll('.platform-card p')[3].textContent = t.interactiveElearning;
+            
+            // تحديث التصنيفات
+            document.querySelectorAll('.cat-item span')[0].textContent = t.personalFamily;
+            document.querySelectorAll('.cat-item span')[1].textContent = t.healthMedical;
+            document.querySelectorAll('.cat-item span')[2].textContent = t.religiousAffairs;
+            document.querySelectorAll('.cat-item span')[3].textContent = t.educationTraining;
+            document.querySelectorAll('.cat-item span')[4].textContent = t.commerceFinance;
+            document.querySelectorAll('.cat-item span')[5].textContent = t.vehiclesTransport;
+            
+            // تحديث شريط التنقل
+            document.querySelectorAll('.nav-item span')[0].textContent = t.home;
+            document.querySelectorAll('.nav-item span')[1].textContent = t.services;
+            document.querySelectorAll('.nav-item span')[2].textContent = t.platforms;
+            document.querySelectorAll('.nav-item span')[3].textContent = t.conversations;
+            document.querySelectorAll('.nav-item span')[4].textContent = t.profile;
+            
+            // تحديث التلميحات
+            document.querySelector('.scroll-hint span').textContent = t.scrollHint;
+        }
+
+        // إعداد التنقل
+        function setupNavigation() {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelector('.nav-item.active').classList.remove('active');
+                    this.classList.add('active');
+                    
+                    // تأثير اهتزاز
+                    if (window.navigator.vibrate) window.navigator.vibrate(20);
+                    
+                    // تأثير النقر
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        if(this.classList.contains('active')) {
+                            this.style.transform = 'translateY(-8px)';
+                        } else {
+                            this.style.transform = 'scale(1)';
+                        }
+                    }, 150);
+                });
+            });
+        }
+
+        // إعداد البحث
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchBar = document.querySelector('.search-bar');
+            
+            searchInput.addEventListener('focus', () => {
+                searchBar.style.transform = 'translateY(-3px)';
+                searchBar.style.boxShadow = 
+                    '0 15px 35px rgba(0,0,0,0.5), 0 0 30px rgba(0, 247, 255, 0.3), inset 0 1px 0 rgba(255,255,255,0.1)';
+            });
+            
+            searchInput.addEventListener('blur', () => {
+                searchBar.style.transform = 'translateY(0)';
+                searchBar.style.boxShadow = 
+                    '0 10px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)';
+            });
+        }
+
+        // تأثيرات تفاعلية إضافية
         document.querySelectorAll('.q-item').forEach(item => {
             item.addEventListener('click', function() {
                 this.style.transform = 'translateY(-8px) scale(0.98)';
@@ -943,7 +1598,7 @@
         `;
         document.head.appendChild(style);
 
-        // تأثير التمرير للبطاقات
+        // تأثيرات الظهور عند التمرير
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
